@@ -8,12 +8,13 @@ mooOptionTree - it simple MooTools plugin that allow build the hierarchical/dyna
 
 ##usage
 ####HTML
-````html4strict
+````html
     <div id="select-tree"></div>
 ````
 ####JavaScript
 
-    <script type="text/javascript">
+```javascript
+
       window.addEvent('domready',function(){
         
         //some options configuration
@@ -53,5 +54,5 @@ mooOptionTree - it simple MooTools plugin that allow build the hierarchical/dyna
           alert('Selected id is: ' + id);
         });
       });
-    </script>
+```
 
