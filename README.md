@@ -8,8 +8,9 @@ mooOptionTree - it simple MooTools plugin that allow build the hierarchical/dyna
 
 ##usage
 ####HTML
+````html4strict
     <div id="select-tree"></div>
-
+````
 ####JavaScript
 
     <script type="text/javascript">
