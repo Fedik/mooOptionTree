@@ -29,7 +29,7 @@ var mooOptionTree = new Class({
     //options
 	options: {
 		name: 'select_item', //default name for select
-		choose: 'Choose...', // string with text if option was selected
+		choose: 'Choose...', // string with text if no option was selected
 		empty_value: '', // what value to set the input to if no valid option was selected
 		request_url: null, //url for children request in JSON, will be a POST request with query: mooOptionTree=1&id=PARENT_ID,
 		loading_image: '', // link to image, show an ajax loading graphics (animated gif) while loading ajax (eg. /ajax-loader.gif)
