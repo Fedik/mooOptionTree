@@ -1,6 +1,6 @@
 /*
  * MooTools mooOptionTree plugin
- * version: 0.1 / 2012.03.23
+ * version: 1.1 / 2012.04.01
  *
  * @requires:
  * 		Mootools 1.3 and height
@@ -9,7 +9,8 @@
  *    http://www.gnu.org/licenses/gpl.html
  *
  * @author  Fedir Zinchuk <getthesite at gmail dot com>
- * @site http://getsite.org.ua
+ * @see https://github.com/Fedik/mooOptionTree
+ * @see http://getsite.org.ua
  */
 
 /**
@@ -29,12 +30,13 @@ var mooOptionTree = new Class({
     //options
 	options: {
 		name: 'select_item', //default name for select
-		choose: 'Choose...', // string with text if no option was selected
+		choose: 'Choose...', // string with text or function that will be passed current level and returns a string
 		empty_value: '', // what value to set the input to if no valid option was selected
-		request_url: null, //url for children request in JSON, will be a POST request with query: mooOptionTree=1&id=PARENT_ID,
+		request_url: null, //url for children request in JSON, will be POST request with query: mooOptionTree=1&id=PARENT_ID,
 		loading_image: '', // link to image, show an ajax loading graphics (animated gif) while loading ajax (eg. /ajax-loader.gif)
 		preselect: [], //array with ids of elements that selected. IMPORTANT: (3 != '3') ... 3 not the same as '3'
-		labels: [] //array of labels for each level
+		labels: [], //array of labels for each level
+		instant_init: true // whether build selects in initialisation time or init later using init()
 	},
 
 	initialize: function(element, options, treeRoot, tree){
@@ -59,12 +61,22 @@ var mooOptionTree = new Class({
 		}
 
 	    //do it!
-		this.updateTree();
+	    if(this.options.instant_init){
+			this.updateTree();
+		}
+   	},
+
+	/**
+	 * function for start build selects manualy, usefull when exist preselected items, because "changed" event fires before object ready
+	 */
+   	init: function(){
+   		this.updateTree();
    	},
 
   	/**
-	 * id - id of parrent
-	 * after - previous select or nothing
+  	 * function for add new select
+  	 *
+	 * @param id, string - id of parrent
 	 */
 	addSelect: function(id){
 		var name = this.options.name;
@@ -129,7 +141,9 @@ var mooOptionTree = new Class({
 	},
 
 	/**
-	 *  changed - DOM element of chenged select
+	 * function for check changes and make update
+	 *
+	 * @param  changed - DOM element of chenged select
 	 */
 	updateTree: function (changed){
 		//var id;//id of selected children
@@ -159,7 +173,10 @@ var mooOptionTree = new Class({
 	},
 
 	/**
-	 * for rebuild tree
+	 * function for reset selected items
+	 * @param bool
+	 * 				true - full reset with clear preselected,
+	 * 				false - back to init state
 	 */
 	resetTree: function(full){
 		if(full){
@@ -170,6 +187,8 @@ var mooOptionTree = new Class({
 
 	/**
 	 * do ajax request for get children for givent id
+	 *
+	 * @param DOM element, changed select
 	 */
 	requestChildren: function (changed) {
 		var id = changed.get('value');
