@@ -25,7 +25,8 @@ window.addEvent('domready',function(){
     request_url: null, //url for children request in JSON, will be POST request with query: mooOptionTree=1&id=PARENT_ID,
     loading_image: '', // link to image, show an ajax loading graphics (animated gif) while loading ajax (eg. /ajax-loader.gif)
     preselect: [], //array with ids of elements that selected. IMPORTANT: (3 != '3') ... 3 not the same as '3'
-    labels: [] //array of labels for each level (ex.: ['Select one','Select two'])
+    labels: [], //array of labels for each level
+    instant_init: true // whether build selects in initialisation time or init later using init()
   }; 
         
   //object that contain information about first <select>, in format 'id':'Title'
@@ -53,6 +54,22 @@ window.addEvent('domready',function(){
     var id = changed.get('value');
     alert('Selected id is: ' + id);
   });
+  
+  //reset selected items, back to init state
+  //for full reset, with cleare preselected use resetTree(true) 
+  tree.resetTree()
+  
+  //if you have preselected items and want use "changed" event, 
+  //then better use init manualy:
+  ....
+  options.instant_init = false;
+  .....
+  var tree = ...
+  ...
+  tree.addEvent('changed',function(changed){ ... });
+  //init manualy
+  tree.init();
+  
 });
 ```
 
