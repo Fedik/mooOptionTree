@@ -1,6 +1,6 @@
 /*
  * MooTools mooOptionTree plugin
- * version: 1.1 / 2012.04.01
+ * version: 1.2 / 2012.04.11
  *
  * @requires:
  * 		Mootools 1.3 and height
@@ -147,6 +147,10 @@ var mooOptionTree = new Class({
 	 */
 	updateTree: function (changed){
 		//var id;//id of selected children
+
+		//change event
+		this.fireEvent('changed', [changed]);
+
 		if(changed){
 
 			//clear all after changed
@@ -168,8 +172,7 @@ var mooOptionTree = new Class({
 			//build new
 			this.addSelect()
 		}
-		//change event
-		this.fireEvent('changed', [changed]);
+
 	},
 
 	/**
