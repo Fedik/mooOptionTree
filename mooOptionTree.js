@@ -216,12 +216,12 @@ var mooOptionTree = new Class({
 		}).send();
 
 		this.request.addEvent('success', function(response) {
-			if (response) {
-				//save answer
+			if (Object.keys(response).length) {
+				// save answer
 				this.tree[id] = {};
 				this.tree[id] = response;
 			}
-			//hide loadin animation
+			// hide loadin animation
 			if (loading_image) {
 				loading_image.dispose();
 			}
