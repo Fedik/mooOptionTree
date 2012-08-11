@@ -1,6 +1,6 @@
 /*
  * MooTools mooOptionTree plugin
- * version: 1.2 / 2012.04.11
+ * version: 1.3 / 2012.08.11
  *
  * @requires:
  * 		Mootools 1.3 and height
@@ -80,10 +80,10 @@ var mooOptionTree = new Class({
 	 */
 	addSelect: function(id){
 		var name = this.options.name;
-		var changed = false;
+		var tree = {};
 
 		if(!id){//build root
-			var tree = this.treeRoot;
+			tree = this.treeRoot;
 		} else if(this.tree && this.tree[id]){ //build children
 			var tree = this.tree[id];
 			name += '_' + id;
@@ -154,7 +154,7 @@ var mooOptionTree = new Class({
 		if(changed){
 
 			//clear all after changed
-			changed.getAllNext('label').destroy().empty()
+			changed.getAllNext('label').destroy().empty();
 			changed.getAllNext('select').destroy().empty();
 
 			//add children select
@@ -167,10 +167,10 @@ var mooOptionTree = new Class({
 			}
 		} else {
 			//cleare and build new
-			this.element.getChildren('label').destroy().empty()
+			this.element.getChildren('label').destroy().empty();
 			this.element.getChildren('select').destroy().empty();
 			//build new
-			this.addSelect()
+			this.addSelect();
 		}
 
 	},
@@ -209,12 +209,16 @@ var mooOptionTree = new Class({
 		    },
 		    onFailure: function(xhr){
 		        console.error(xhr);
+		    },
+		    onError: function (text, error) {
+		    	console.error(error + ': ' + text);
 		    }
 		}).send();
 
 		this.request.addEvent('success', function(response){
-			if(response.length){
+			if(response){
 				//save answer
+				this.tree[id] = {};
 		    	this.tree[id] = response;
 		    }
 		    //hide loadin animation
