@@ -215,17 +215,17 @@ var mooOptionTree = new Class({
 		    }
 		}).send();
 
-		this.request.addEvent('success', function(response){
-			if(response){
+		this.request.addEvent('success', function(response) {
+			if (response) {
 				//save answer
 				this.tree[id] = {};
-		    	this.tree[id] = response;
-		    }
-		    //hide loadin animation
-		    if(loading_image){
-		       	loading_image.dispose();
-		    }
-		    this.addSelect(id);
+				this.tree[id] = response;
+			}
+			//hide loadin animation
+			if (loading_image) {
+				loading_image.dispose();
+			}
+			this.addSelect(id);
 		}.bind(this));
 	}
 
